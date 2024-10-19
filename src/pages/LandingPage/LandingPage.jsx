@@ -67,7 +67,7 @@ const LandingPage = () => {
                 </Link>
               </div>
               <div className="button-wrapper">
-                <Link to="/extract" className="btn btn-primary">
+                <Link to="/xtract" className="btn btn-primary">
                   Upload Note
                 </Link>
               </div>

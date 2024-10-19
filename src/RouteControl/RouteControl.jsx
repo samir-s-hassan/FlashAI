@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "../pages/LandingPage/LandingPage.jsx";
+import ExtractNotesPage from "../pages/ExtractNotesPage/ExtractNotesPage.jsx";
 import GenerateFlashcardsPage from "../pages/GenerateFlashcardsPage.jsx";
 
 const RouteControl = () => {
@@ -7,6 +8,7 @@ const RouteControl = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/generate" element={<GenerateFlashcardsPage />} />
+        <Route path="/xtract" element={<ExtractNotesPage />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
   );
