@@ -6,6 +6,7 @@ import RetreiveData from "../services/RetrieveData";
 const GenerateFlashcardsPage = () => {
   const [inputText, setInputText] = useState("");
   const [clickedGenerate, setClickedGenerate] = useState(0);
+  const [finalInput, setFinalInput] = useState(""); // New state to store the final input
 
   const promptSuggestions = [
     "Explain the key concepts of photosynthesis",
@@ -14,6 +15,13 @@ const GenerateFlashcardsPage = () => {
     "Describe the structure of a human cell",
     "Outline the plot of Shakespeare's Hamlet",
   ];
+
+  const handleGenerateClick = () => {
+    if (inputText.trim() !== "") {
+      setFinalInput(inputText); // Only update this when button is clicked
+      setClickedGenerate((prev) => prev + 1);
+    }
+  };
 
   return (
     <div className="scaled-container">
@@ -38,7 +46,7 @@ const GenerateFlashcardsPage = () => {
           ></textarea>
 
           <button
-            onClick={() => setClickedGenerate((prev) => prev + 1)}
+            onClick={handleGenerateClick}
             className="btn btn-primary"
           >
             Generate Flashcards
@@ -59,8 +67,8 @@ const GenerateFlashcardsPage = () => {
             </div>
           </div>
         </div>
-        {clickedGenerate > 0 && inputText !== "" && (
-          <RetreiveData key={clickedGenerate} input={inputText} />
+        {clickedGenerate > 0 && finalInput !== "" && (
+          <RetreiveData key={clickedGenerate} input={finalInput} />
         )}
       </main>
     </div>

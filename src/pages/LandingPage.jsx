@@ -67,11 +67,6 @@ const LandingPage = () => {
                 </Link>
               </div>
               <div className="button-wrapper">
-                <Link to="/transform" className="btn btn-primary">
-                  Note &rarr; Flashcards
-                </Link>
-              </div>
-              <div className="button-wrapper">
                 <Link to="/extract" className="btn btn-primary">
                   Note &rarr; Text
                 </Link>

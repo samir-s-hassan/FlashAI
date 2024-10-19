@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
+// eslint-disable-next-line react/prop-types
 const RetreiveData = ({ input }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
