@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import RouteControl from "./RouteControl/RouteControl";
+import RouteControl from "./RouteControl";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 

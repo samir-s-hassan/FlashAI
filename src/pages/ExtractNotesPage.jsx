@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./ExtractNotesPage.css";
+import "../index.css"
 
-const ExtractNotes = () => {
+const ExtractNotesPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState(null);
@@ -102,4 +102,4 @@ const ExtractNotes = () => {
   );
 };
 
-export default ExtractNotes;
+export default ExtractNotesPage;

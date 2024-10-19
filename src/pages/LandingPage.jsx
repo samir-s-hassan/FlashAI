@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import "./LandingPage.css";
-import PricingSection from "../../components/PricingSection";
-import FlashcardSection from "../../components/FlashcardSection";
+import PricingSection from "../components/PricingSection";
+import FlashcardSection from "../components/FlashcardSection";
 import { Link } from "react-router-dom";
+import "../index.css"
 
 const images = ["/ai-3.webp", "/ai-4.png", "/ai-5.png", "/ai-6.png"];
 

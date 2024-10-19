@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FlashcardComponent from "../components/FlashcardComponent"; 
+import "../index.css"
 
 const GenerateFlashcardsPage = () => {
   const [inputText, setInputText] = useState("");
@@ -17,7 +18,6 @@ const GenerateFlashcardsPage = () => {
     <div className="scaled-container">
       <header className="header">
         <h1 className="app-name">FlashAI</h1>
-        <button className="btn btn-secondary">Pricing</button>
       </header>
 
       <main className="container">
