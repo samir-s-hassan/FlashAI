@@ -5,14 +5,14 @@ import "../index.css";
 const ExtractNotesPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [downloadUrl, setDownloadUrl] = useState(null);
+  const [extractedText, setExtractedText] = useState(""); // Store the extracted text
   const [error, setError] = useState(null);
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       setSelectedFile(acceptedFiles[0]);
       setError(null);
-      setDownloadUrl(null);
+      setExtractedText(""); // Clear any previous extracted text
     }
   }, []);
 
@@ -30,34 +30,30 @@ const ExtractNotesPage = () => {
 
     setIsUploading(true);
     setError(null);
-    setDownloadUrl(null);
+    setExtractedText("");
 
     const formData = new FormData();
     formData.append("image", selectedFile);
+    formData.append("userFunction", "extractText");  // Adding user function to FormData
 
     try {
-      // First, upload the image
-      const uploadResponse = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      // Send the image and userFunction to your backend
+      const uploadResponse = await fetch(
+        "https://igojsrmb51.execute-api.us-west-2.amazonaws.com/dev",
+        {
+          method: "POST",
+          body: formData,  // Include the image and userFunction in form data
+        }
+      );
 
       if (!uploadResponse.ok) {
-        throw new Error("Image upload failed");
+        throw new Error("Image upload failed or extraction failed.");
       }
 
-      // Then, request the processed document
-      const downloadResponse = await fetch("/api/process", {
-        method: "GET",
-      });
+      // Handle the returned text response
+      const data = await uploadResponse.json(); // Assuming the response is JSON
+      setExtractedText(data.extractedText); // Assuming `extractedText` is returned from the backend
 
-      if (!downloadResponse.ok) {
-        throw new Error("Failed to process the image");
-      }
-
-      const blob = await downloadResponse.blob();
-      const url = window.URL.createObjectURL(blob);
-      setDownloadUrl(url);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred"
@@ -65,6 +61,16 @@ const ExtractNotesPage = () => {
     } finally {
       setIsUploading(false);
     }
+  };
+
+  const downloadExtractedText = () => {
+    // Create a downloadable file for the extracted text
+    const blob = new Blob([extractedText], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "extracted_text.txt"; // You can change this to a .docx if needed
+    a.click();
   };
 
   return (
@@ -75,11 +81,6 @@ const ExtractNotesPage = () => {
 
       <main className="container">
         <h2 className="hero-title">Extract Notes from Images</h2>
-        <p className="hero-description">
-          <a href="#" className="text-link">
-            View Extracted Notes
-          </a>
-        </p>
 
         <div className="content-section">
           <form onSubmit={handleSubmit} className="file-upload-form">
@@ -95,15 +96,18 @@ const ExtractNotesPage = () => {
                 cursor: "pointer",
                 backgroundColor: isDragActive ? "#f0f8ff" : "#fafafa",
                 transition: "background-color 0.3s ease",
-                marginBottom: "20px", // Add space below the dropzone
+                marginBottom: "20px",
               }}
             >
               <input {...getInputProps()} />
               {isDragActive ? (
                 <p>Drop the file here...</p>
+              ) : selectedFile ? (
+                <p>File selected: {selectedFile.name}</p> // Display selected file name
               ) : (
                 <p>
-                  Drag 'n' drop an image here, or click here to select a file (JPG, PNG, etc.)
+                  Drag 'n' drop an image here, or click here to select a file
+                  (JPG, PNG, etc.)
                 </p>
               )}
             </div>
@@ -120,15 +124,20 @@ const ExtractNotesPage = () => {
           </form>
 
           {error && <p className="error-message">{error}</p>}
-          {downloadUrl && (
-            <div className="download-container">
-              <a
-                href={downloadUrl}
-                download="extracted_text.docx"
-                className="download-link"
-              >
-                Download Extracted Text (.docx)
-              </a>
+
+          {/* Display extracted text */}
+          {extractedText && (
+            <div className="extracted-text-container">
+              <h3>Extracted Text:</h3>
+              <textarea
+                className="extracted-text-area"
+                value={extractedText}
+                readOnly
+              ></textarea>
+
+              <button onClick={downloadExtractedText} className="btn btn-secondary">
+                Download Extracted Text
+              </button>
             </div>
           )}
         </div>
