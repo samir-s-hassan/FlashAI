@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RetreiveData from "./RetrieveData";
+import RetreiveData from "../services/RetrieveData";
 
 const GenerateFlashcardsPage = () => {
   const [inputText, setInputText] = useState("");

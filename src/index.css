@@ -2,7 +2,7 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background-color: #FAF0E6; /* Beige background */
+  background-color: #faf0e6; /* Beige background */
   color: #000; /* Black text */
   margin: 0;
   padding: 0;
@@ -18,10 +18,10 @@ body {
 /* Header Styles */
 .header {
   backdrop-filter: blur(5px);
-  display: flex; 
-  justify-content: flex-start; 
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
-  padding: 1rem 20px; 
+  padding: 1rem 20px;
 }
 
 .app-name {
@@ -153,7 +153,6 @@ body {
   color: #333;
 }
 
-
 /* Rotating Images Section */
 .rotating-images {
   margin: 3rem auto;
@@ -165,11 +164,11 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden; /* Ensure no overflow is visible */
-  background-color: #FAF0E6; /* Beige background inside the border */
+  background-color: #faf0e6; /* Beige background inside the border */
 }
 
 .rotating-image {
-  width: 1100px;  /* Ensures the image fills the container */
+  width: 1100px; /* Ensures the image fills the container */
   height: 510px; /* Ensures the image fills the container */
   object-fit: cover; /* Ensures the image covers the entire container, cropping if necessary */
   object-position: center; /* Centers the image in case of cropping */
@@ -196,7 +195,7 @@ body {
 
 .pricing-card {
   background-color: #f8e8d9;
-  border: .5px solid #ffc68e;
+  border: 0.5px solid #ffc68e;
   border-radius: 0.5rem;
   padding: 2rem;
   width: calc(33.333% - 1.33rem);
@@ -276,10 +275,9 @@ body {
   }
 }
 
-
 .page {
   min-height: 100vh;
-  background-color: #FAF0E6;
+  background-color: #faf0e6;
   color: #000;
   font-size: 0.9rem; /* Reduced base font size */
 }
@@ -297,7 +295,7 @@ body {
 }
 
 .btn-secondary {
-  background-color: #D2691E;
+  background-color: #d2691e;
   color: white;
   padding: 0.4rem 0.8rem; /* Reduced button padding */
   border-radius: 0.4rem;
@@ -316,7 +314,7 @@ body {
 }
 
 .text-link {
-  color: #D2691E;
+  color: #d2691e;
   text-decoration: none;
 }
 
@@ -340,7 +338,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #FFD700;
+  background-color: #ffd700;
   color: black;
   width: 100%;
   padding: 0.6rem; /* Reduced button padding */
@@ -351,7 +349,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #FFC000;
+  background-color: #ffc000;
 }
 
 .section-title {
@@ -367,7 +365,7 @@ body {
 }
 
 .prompt-btn {
-  background-color: #FFE4B5;
+  background-color: #ffe4b5;
   color: black;
   padding: 0.4rem 0.8rem; /* Reduced button padding */
   border-radius: 1.5rem;
@@ -376,5 +374,5 @@ body {
 }
 
 .prompt-btn:hover {
-  background-color: #FFD700;
+  background-color: #ffd700;
 }

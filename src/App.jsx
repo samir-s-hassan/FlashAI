@@ -1,15 +1,10 @@
-import { Route, Routes } from "react-router-dom";
-import LandingPage from "./LandingPage";
-import GenerateFlashcardsPage from "./GenerateFlashcardsPage.jsx";
+import { createRoot } from "react-dom/client";
+import RouteControl from "./RouteControl/RouteControl";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 
-const App = () => {
-  return (
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/generate" element={<GenerateFlashcardsPage />} />
-        <Route path="*" element={<div>404 Not Found</div>} />
-      </Routes>
-  );
-};
-
-export default App;
+createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <RouteControl />
+  </BrowserRouter>
+);

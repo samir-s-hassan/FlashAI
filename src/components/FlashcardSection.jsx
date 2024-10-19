@@ -1,8 +1,5 @@
 // src/components/FlashcardSection.tsx
-
 import { motion } from "framer-motion";
-
-
 
 const FlashcardSection = () => {
   const fadeInWithDelay = (delay) => ({

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 // eslint-disable-next-line react/prop-types
-const RetreiveData = ({input}) => {
-const [data, setData] = useState(null);
+const RetreiveData = ({ input }) => {
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,19 +13,18 @@ const [data, setData] = useState(null);
       setLoading(true);
       try {
         const { data: response } = await axios.get(apiUrl, {
-            params: {input},
+          params: { input },
         });
         console.log(response);
         setData(response);
         setLoading(false);
       } catch (error) {
         console.log(error);
-        setLoading(false); 
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
-  
 
   return (
     <div>
