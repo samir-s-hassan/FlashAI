@@ -376,3 +376,54 @@ body {
 .prompt-btn:hover {
   background-color: #ffd700;
 }
+
+.flashcard-section-custom {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.flashcard-header-custom {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.flashcard-grid-custom {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 flashcards per row */
+  gap: 16px;
+  justify-content: center; /* Centers the flashcards horizontally */
+}
+
+.flashcard-custom {
+  padding: 16px;
+  background-color: #e0c7a8; /* Darker beige background */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+  width: 200px; /* Wider flashcard */
+  height: 150px; /* Shorter height */
+}
+
+.flashcard-custom:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.flashcard-custom .flashcard-content-custom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.flashcard-custom .question-custom {
+  font-size: 14px; /* Adjust text size */
+}
+
+.flashcard-custom .answer-custom {
+  font-size: 16px;
+  font-weight: bold;
+}

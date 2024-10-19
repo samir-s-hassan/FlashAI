@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RetreiveData from "../services/RetrieveData";
+import FlashcardComponent from "../components/FlashcardComponent"; 
 
 const GenerateFlashcardsPage = () => {
   const [inputText, setInputText] = useState("");
@@ -58,8 +58,10 @@ const GenerateFlashcardsPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Use FlashcardComponent instead of RetreiveData */}
         {clickedGenerate > 0 && inputText !== "" && (
-          <RetreiveData key={clickedGenerate} input={inputText} />
+          <FlashcardComponent key={clickedGenerate} input={inputText} />
         )}
       </main>
     </div>
