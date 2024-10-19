@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 import "../index.css";
 
 const ExtractNotesPage = () => {
@@ -7,18 +8,23 @@ const ExtractNotesPage = () => {
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [error, setError] = useState(null);
 
-  const handleFileChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setSelectedFile(event.target.files[0]);
+  const onDrop = useCallback((acceptedFiles) => {
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      setSelectedFile(acceptedFiles[0]);
       setError(null);
       setDownloadUrl(null);
     }
-  };
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: "image/*",
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedFile) {
-      setError("Please select a file to upload.");
+      setError("Please select or drop a file to upload.");
       return;
     }
 
@@ -62,46 +68,71 @@ const ExtractNotesPage = () => {
   };
 
   return (
-    <div className="file-upload-container">
+    <div className="scaled-container">
       <header className="header">
         <h1 className="app-name">FlashAI</h1>
       </header>
 
-      <div className="file-upload-card">
-        <h2 className="file-upload-title">Image Upload and Text Extraction</h2>
-        <form onSubmit={handleSubmit} className="file-upload-form">
-          <div>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              disabled={isUploading}
-              className="file-input"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={isUploading || !selectedFile}
-            className={`submit-button ${
-              isUploading || !selectedFile ? "disabled" : ""
-            }`}
-          >
-            {isUploading ? "Uploading..." : "Upload Image"}
-          </button>
-        </form>
-        {error && <p className="error-message">{error}</p>}
-        {downloadUrl && (
-          <div className="download-container">
-            <a
-              href={downloadUrl}
-              download="extracted_text.docx"
-              className="download-link"
+      <main className="container">
+        <h2 className="hero-title">Extract Notes from Images</h2>
+        <p className="hero-description">
+          <a href="#" className="text-link">
+            View Extracted Notes
+          </a>
+        </p>
+
+        <div className="content-section">
+          <form onSubmit={handleSubmit} className="file-upload-form">
+            <div
+              {...getRootProps({
+                className: `dropzone ${isDragActive ? "active" : ""}`,
+              })}
+              style={{
+                border: "2px dashed #ccc",
+                borderRadius: "8px",
+                padding: "20px",
+                textAlign: "center",
+                cursor: "pointer",
+                backgroundColor: isDragActive ? "#f0f8ff" : "#fafafa",
+                transition: "background-color 0.3s ease",
+                marginBottom: "20px", // Add space below the dropzone
+              }}
             >
-              Download Text (.docx)
-            </a>
-          </div>
-        )}
-      </div>
+              <input {...getInputProps()} />
+              {isDragActive ? (
+                <p>Drop the file here...</p>
+              ) : (
+                <p>
+                  Drag 'n' drop an image here, or click here to select a file (JPG, PNG, etc.)
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={isUploading || !selectedFile}
+              className={`btn btn-primary ${
+                isUploading || !selectedFile ? "disabled" : ""
+              }`}
+            >
+              {isUploading ? "Uploading..." : "Upload Image"}
+            </button>
+          </form>
+
+          {error && <p className="error-message">{error}</p>}
+          {downloadUrl && (
+            <div className="download-container">
+              <a
+                href={downloadUrl}
+                download="extracted_text.docx"
+                className="download-link"
+              >
+                Download Extracted Text (.docx)
+              </a>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 };

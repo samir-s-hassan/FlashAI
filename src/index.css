@@ -109,7 +109,8 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #f9bc80;
+  background-color: #ffcc00; /* Slightly brighter yellow */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-secondary {
@@ -367,14 +368,15 @@ body {
 .prompt-btn {
   background-color: #ffe4b5;
   color: black;
-  padding: 0.4rem 0.8rem; /* Reduced button padding */
-  border-radius: 1.5rem;
-  font-size: 0.75rem; /* Reduced button font size */
+  padding: 0.6rem 1.2rem; /* Increase padding */
+  border-radius: 20px;
+  font-size: 0.85rem; /* Slightly increase text size */
   cursor: pointer;
 }
 
 .prompt-btn:hover {
   background-color: #ffd700;
+  transform: scale(1.05); /* Slight zoom on hover */
 }
 /* Flashcard Grid */
 .flashcard-grid-custom {
