@@ -54,7 +54,7 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 2 }}
             >
-              AI Superpowers for your flashcards
+              AI Superpowers for your Learning
             </motion.h2>
             <motion.p className="hero-description" {...fadeIn}>
               Create personalized AI-powered flashcards in seconds. Boost your
@@ -67,8 +67,13 @@ const LandingPage = () => {
                 </Link>
               </div>
               <div className="button-wrapper">
-                <Link to="/xtract" className="btn btn-primary">
-                  Upload Note
+                <Link to="/transform" className="btn btn-primary">
+                  Note &rarr; Flashcards
+                </Link>
+              </div>
+              <div className="button-wrapper">
+                <Link to="/extract" className="btn btn-primary">
+                  Note &rarr; Text
                 </Link>
               </div>
             </motion.div>{" "}

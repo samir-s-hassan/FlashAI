@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const ExtractNotesPage = () => {
+const Note2FlashcardsPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState(null);
@@ -66,7 +66,6 @@ const ExtractNotesPage = () => {
       <header className="header">
         <h1 className="app-name">FlashAI</h1>
       </header>
-
       <div className="file-upload-card">
         <h2 className="file-upload-title">Image Upload and Text Extraction</h2>
         <form onSubmit={handleSubmit} className="file-upload-form">
@@ -106,4 +105,4 @@ const ExtractNotesPage = () => {
   );
 };
 
-export default ExtractNotesPage;
+export default Note2FlashcardsPage;
