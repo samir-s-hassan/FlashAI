@@ -8,7 +8,7 @@ const RetreiveData = ({ input }) => {
 
   useEffect(() => {
     console.log("Trying");
-    const apiUrl = "https://uwtgx3k0v9.execute-api.us-east-1.amazonaws.com/dev";
+    const apiUrl = "https://igojsrmb51.execute-api.us-west-2.amazonaws.com/dev";
     const fetchData = async () => {
       setLoading(true);
       try {
