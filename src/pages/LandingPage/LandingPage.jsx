@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import "../index.css";
-import PricingSection from "../components/PricingSection";
-import FlashcardSection from "../components/FlashcardSection";
+import "./LandingPage.css";
+import PricingSection from "../../components/PricingSection";
+import FlashcardSection from "../../components/FlashcardSection";
 import { Link } from "react-router-dom";
 
 const images = ["/ai-3.webp", "/ai-4.png", "/ai-5.png", "/ai-6.png"];
@@ -60,11 +60,18 @@ const LandingPage = () => {
               Create personalized AI-powered flashcards in seconds. Boost your
               study efficiency and retain information like never before.
             </motion.p>
-            <motion.div {...fadeIn}>
-              <Link to="/generate" className="btn btn-primary">
-                Generate Flashcards
-              </Link>
-            </motion.div>
+            <motion.div {...fadeIn} className="button-container">
+              <div className="button-wrapper">
+                <Link to="/generate" className="btn btn-primary">
+                  Generate Flashcards
+                </Link>
+              </div>
+              <div className="button-wrapper">
+                <Link to="/extract" className="btn btn-primary">
+                  Upload Note
+                </Link>
+              </div>
+            </motion.div>{" "}
           </div>
         </motion.section>
 

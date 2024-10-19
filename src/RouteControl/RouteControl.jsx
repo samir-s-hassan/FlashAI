@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import LandingPage from "../pages/LandingPage.jsx";
+import LandingPage from "../pages/LandingPage/LandingPage.jsx";
 import GenerateFlashcardsPage from "../pages/GenerateFlashcardsPage.jsx";
 
 const RouteControl = () => {
