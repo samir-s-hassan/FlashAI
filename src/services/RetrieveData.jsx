@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// eslint-disable-next-line react/prop-types
 const RetreiveData = ({ input }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [flippedCards, setFlippedCards] = useState({});  // Track flipped state for each card
 
   useEffect(() => {
-    console.log("Trying");
     const apiUrl = "https://igojsrmb51.execute-api.us-west-2.amazonaws.com/dev";
     const fetchData = async () => {
       setLoading(true);
       try {
-        const { data: response } = await axios.get(apiUrl, {
-          params: { input },
+        const { data: response } = await axios.post(apiUrl, {
+          userTopic: input  // Pass 'userTopic' in the body for the POST request
         });
-        console.log(response);
-        setData(response);
+        // Filter out the first instruction card
+        const filteredData = response.flashcards.split('\n\n').slice(1);
+        setData(filteredData);  // Handle the response
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -24,16 +24,39 @@ const RetreiveData = ({ input }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [input]);
+
+  const handleCardClick = (index) => {
+    // Toggle the flipped state of the card
+    setFlippedCards((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
 
   return (
-    <div>
-      {loading && <div>Loading</div>}
-      {!loading && (
-        <div>
-          <h2>Flashcards Preview</h2>
-          {data}
-        </div>
+    <div className="flashcard-section-custom">
+      {loading && <div className="loading">Loading...</div>}
+      {!loading && data && (
+        <>
+          <h2 className="flashcard-header-custom">Flashcards Preview</h2>
+          <div className="flashcard-grid-custom">
+            {data.map((flashcard, index) => {
+              const [question, answer] = flashcard.split('\n'); // Separate question and answer
+              const isFlipped = flippedCards[index]; // Check if the card is flipped
+              
+              return (
+                <div 
+                  key={index} 
+                  className={`flashcard-custom ${isFlipped ? 'flipped' : ''}`}
+                  onClick={() => handleCardClick(index)}
+                >
+                  <div className="flashcard-content-custom">
+                    <div className="front">{question}</div>
+                    <div className="back">{answer}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );

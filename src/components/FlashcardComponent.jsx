@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
+// eslint-disable-next-line react/prop-types
 function FlashcardComponent({ input }) {
   const [flashcards, setFlashcards] = useState([]);
   const [revealedCards, setRevealedCards] = useState([]);

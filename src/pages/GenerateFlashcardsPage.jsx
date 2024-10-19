@@ -1,6 +1,7 @@
 import { useState } from "react";
+// eslint-disable-next-line no-unused-vars
 import FlashcardComponent from "../components/FlashcardComponent"; 
-import "../index.css"
+import RetreiveData from "../services/RetrieveData";
 
 const GenerateFlashcardsPage = () => {
   const [inputText, setInputText] = useState("");
@@ -58,10 +59,8 @@ const GenerateFlashcardsPage = () => {
             </div>
           </div>
         </div>
-
-        {/* Use FlashcardComponent instead of RetreiveData */}
         {clickedGenerate > 0 && inputText !== "" && (
-          <FlashcardComponent key={clickedGenerate} input={inputText} />
+          <RetreiveData key={clickedGenerate} input={inputText} />
         )}
       </main>
     </div>
