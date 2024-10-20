@@ -105,6 +105,7 @@ body {
   text-align: center; /* Ensures text is centered in the button */
   display: inline-block; /* Ensures the button takes up only as much space as needed */
   min-width: 200px; /* Sets a minimum width for the buttons */
+  border: none;
 }
 
 .btn-primary {
