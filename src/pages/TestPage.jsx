@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 // Levenshtein distance function
 function levenshteinDistance(a, b) {
@@ -154,7 +154,10 @@ const TestPage = () => {
 
   return (
     <div style={styles.testPage}>
-      <h1 style={styles.title}>{collection.topic} - Test Mode</h1>
+      <header className="header">
+        <Link to="/" className="app-name">FlashAI</Link>
+        <h2 style={styles.title}>{collection.topic} - Test Mode</h2>
+      </header>
       <div style={styles.progressBar}>
         <div style={{...styles.progressFill, width: `${((currentCardIndex + 1) / collection.flashcards.length) * 100}%`}}></div>
       </div>
