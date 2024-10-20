@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RetreiveData from "../services/RetrieveData";
+import RetrieveData from "../services/RetrieveData";
 import { Link } from "react-router-dom";
 
 const GenerateFlashcardsPage = () => {
@@ -11,11 +11,11 @@ const GenerateFlashcardsPage = () => {
   const [isDragging, setIsDragging] = useState(false); // For drag-and-drop visual
 
   const promptSuggestions = [
-    "Explain the key concepts of photosynthesis",
-    "Summarize the main events of World War II",
+    "Explain the steps of the scientific method",
+    "Summarize the main events of World War I",
     "List the fundamental principles of economics",
     "Describe the structure of a human cell",
-    "Outline the plot of Shakespeare's Hamlet",
+    "Outline the plot of Romeo and Juliet",
   ];
 
   const handleGenerateClick = () => {
@@ -61,7 +61,7 @@ const GenerateFlashcardsPage = () => {
   return (
     <div className="scaled-container">
       <header className="header">
-        <h1 className="app-name">FlashAI</h1>
+        <Link to="/" className="app-name">FlashAI</Link>
       </header>
 
       <main className="container">
@@ -122,7 +122,7 @@ const GenerateFlashcardsPage = () => {
           </div>
         </div>
         {clickedGenerate > 0 && (finalInput !== "" || fileContent !== "") && (
-          <RetreiveData 
+          <RetrieveData 
             key={clickedGenerate} 
             input={finalInput} 
             fileContent={fileContent}
