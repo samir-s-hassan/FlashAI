@@ -19,7 +19,7 @@ const GenerateFlashcardsPage = () => {
 
   const handleGenerateClick = () => {
     if (inputText.trim() !== "" || fileContent.trim() !== "") {
-      setFinalInput(inputText || fileContent); // Use either text input or file content
+      setFinalInput(inputText);
       setClickedGenerate((prev) => prev + 1);
     }
   };
@@ -29,7 +29,7 @@ const GenerateFlashcardsPage = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target.result;
-      setFileContent(content); // You can process content later for images/PDFs
+      setFileContent(content); // Set file content but do not trigger API call yet
       setInputText(""); // Clear input text when file is uploaded
     };
     reader.readAsText(file); // Keep as text for .txt files, otherwise handle different types below
@@ -120,8 +120,12 @@ const GenerateFlashcardsPage = () => {
             </div>
           </div>
         </div>
-        {clickedGenerate > 0 && finalInput !== "" && (
-          <RetreiveData key={clickedGenerate} input={finalInput} />
+        {clickedGenerate > 0 && (finalInput !== "" || fileContent !== "") && (
+          <RetreiveData 
+            key={clickedGenerate} 
+            input={finalInput} 
+            fileContent={fileContent}
+          />
         )}
       </main>
     </div>

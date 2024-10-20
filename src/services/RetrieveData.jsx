@@ -1,8 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
+// Custom base64 encoding function that handles Unicode characters
+function utf8_to_b64(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+    return String.fromCharCode('0x' + p1);
+  }));
+}
+
 // eslint-disable-next-line react/prop-types
-const RetreiveData = ({ input }) => {
+const RetreiveData = ({ input, fileContent }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [flippedCards, setFlippedCards] = useState({});  // Track flipped state for each card
@@ -11,25 +18,38 @@ const RetreiveData = ({ input }) => {
   useEffect(() => {
     const apiUrl = "https://igojsrmb51.execute-api.us-west-2.amazonaws.com/dev";
     const fetchData = async () => {
-      setLoading(true);
+      setLoading(true); 
       try {
-        const { data: response } = await axios.post(apiUrl, {
-          userTopic: input  // Pass 'userTopic' in the body for the POST request
-        });
-        // Filter out the first instruction card
-        const filteredData = response.flashcards.split('\n\n').slice(1);
-        setData(filteredData);  // Handle the response
+        const payload = fileContent 
+          ? { fileContent: utf8_to_b64(fileContent) }
+          : { userTopic: input };
+        
+        console.log("Sending payload:", payload); // Log the payload being sent
+        
+        const { data: response } = await axios.post(apiUrl, payload);
+        
+        // Check if flashcards exist and is a string
+        if (response.flashcards && typeof response.flashcards === 'string') {
+          // Filter out the first instruction card
+          const filteredData = response.flashcards.split('\n\n').slice(1);
+          setData(filteredData);  // Handle the response
+        } else {
+          console.error("Invalid response format:", response);
+          setData([]); // Set data to an empty array if the format is invalid
+        }
+        
         setLoading(false);
         
         // Scroll down to the flashcards after loading
         flashcardsRef.current?.scrollIntoView({ behavior: 'smooth' });
       } catch (error) {
-        console.log(error);
+        console.error("Error details:", error.response?.data); // Log the error response
+        console.error("Full error object:", error);
         setLoading(false);
       }
     };
     fetchData();
-  }, [input]);
+  }, [input, fileContent]);
 
   const handleCardClick = (index) => {
     // Toggle the flipped state of the card
@@ -65,8 +85,8 @@ const RetreiveData = ({ input }) => {
                   onClick={() => handleCardClick(index)}
                 >
                   <div className="flashcard-content-custom">
-                    <div className="front">{question.trim()}</div>
-                    <div className="back">{answer.trim()}</div>
+                    <div className="front">{question?.trim() || "No Question"}</div>
+                    <div className="back">{answer?.trim() || "No Answer"}</div>
                   </div>
                 </div>
               );
