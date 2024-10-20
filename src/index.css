@@ -144,7 +144,7 @@ body {
 .flashcard {
   background-color: white;
   padding: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 30%; /* Each flashcard takes up 30% of the container width */
   text-align: center;
@@ -390,17 +390,19 @@ body {
 .flashcard-grid-custom {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;  /* Increase the gap between cards */
+  column-gap: 5rem;  /* Increase the gap between cards */
+  row-gap: 2rem;
   justify-items: center;
-  margin: 20px;
+  margin: 2rem;
 }
 
 /* Flashcard Styles */
 .flashcard-custom {
-  width: 250px;
+  width: 300px;
   height: 200px;
   perspective: 1000px; /* Perspective for the flip effect */
   margin-bottom: 30px;  /* Add more space below each card */
+  position: relative; /* Ensure relative positioning */
 }
 
 .flashcard-content-custom {
@@ -411,6 +413,7 @@ body {
   transition: transform 0.6s;
   transform-style: preserve-3d;
   cursor: pointer;
+  backface-visibility: hidden; /* Ensure backface is hidden */
 }
 
 .flipped .flashcard-content-custom {
@@ -421,7 +424,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  backface-visibility: hidden; /* Ensure backface is hidden */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -429,6 +432,7 @@ body {
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
+  border-radius: .1rem;
 }
 
 .flashcard-custom .front {
@@ -442,49 +446,59 @@ body {
   transform: rotateY(180deg); /* Back side is flipped */
 }
 
-/* Loading Spinner */
+/* Additional Fixes */
+.flashcard-custom .front,
+.flashcard-custom .back {
+  /* Ensure both sides have the same box-sizing */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Optional: Add a slight margin to the card to prevent any overflow */
+.flashcard-custom {
+  margin: 0 auto; /* Center the card in its container */
+}
+
+/* Loading Animation */
 .loading {
-  font-size: 18px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
+  padding: 2rem 0;
 }
 
-.spinner {
-  width: 80px;
-  height: 80px;
-  position: relative;
+.loading-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-.dot1, .dot2, .dot3, .dot4, .dot5 {
-  width: 16px;
-  height: 16px;
-  background-color: #4CAF50;
-  border-radius: 50%;
-  position: absolute;
-  animation: bounce 1.5s infinite ease-in-out;
+.loading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  margin: 20px;
+  column-gap: 5rem;
+  row-gap: 2rem;
 }
 
-.dot1 { top: 0; left: 50%; transform: translateX(-50%); }
-.dot2 { top: 25%; left: 25%; }
-.dot3 { top: 50%; left: 0; transform: translateY(-50%); }
-.dot4 { top: 75%; left: 25%; }
-.dot5 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.loading-card {
+  width: 300px;
+  height: 200px;
+  background-color: rgb(162, 157, 157);
+  border-radius: 10px;
+  animation: pulse 1.5s infinite;
+}
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: scale(1);
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
   }
-  40% {
-    transform: scale(1.5);
+  50% {
+    opacity: 1;
   }
-  60% {
-    transform: scale(1.2);
+  100% {
+    opacity: 0.6;
   }
 }
-
 
 .button-container {
   display: flex;
@@ -496,7 +510,6 @@ body {
 .button-wrapper {
   flex: 0 1 auto; 
 }
-
 
 /* Drag and Drop Styling for File Input */
 .file-drop-zone {
@@ -529,7 +542,7 @@ body {
 .file-drop-zone p {
   margin: 0;
   font-size: 14px;
-  color: #333;
+  color:  #333;
 }
 
 /* Updated Textarea Styles */
@@ -544,4 +557,179 @@ body {
   font-size: 0.9rem;
   color: #333;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.flashcard-actions {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.flashcard-custom:hover .flashcard-actions {
+  opacity: 1;
+}
+
+.flashcard-actions button {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.flashcard-custom.editing {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.flashcard-custom.editing input {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.flashcard-section-custom .flashcard-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.flashcard-section-custom .flashcard-actions button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #ffc68e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flashcard-section-custom .flashcard-actions button:hover {
+  background-color: #f9bc80;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.modal-actions button:first-child {
+  background-color: #f9bc80;
+  color: #fff;
+}
+
+.modal-actions button:last-child {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-actions button:hover {
+  opacity: 0.9;
+}
+
+/* Adjust existing flashcard styles */
+.flashcard-custom {
+  /* ... (keep existing styles) ... */
+  position: relative;
+}
+
+.flashcard-actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.flashcard-actions button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+
+.flashcard-actions button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.flashcard-header-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.flashcard-actions-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px; /* Space above the action buttons */
+}
+
+.flashcard-action-button {
+  padding: 10px 20px;
+  background-color: #ffc68e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.flashcard-action-button:hover {
+  background-color: #f9bc80;
 }
