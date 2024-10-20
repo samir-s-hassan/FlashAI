@@ -144,7 +144,7 @@ body {
 .flashcard {
   background-color: white;
   padding: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 30%; /* Each flashcard takes up 30% of the container width */
   text-align: center;
@@ -390,14 +390,15 @@ body {
 .flashcard-grid-custom {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;  /* Increase the gap between cards */
+  column-gap: 5rem;  /* Increase the gap between cards */
+  row-gap: 2rem;
   justify-items: center;
-  margin: 20px;
+  margin: 2rem;
 }
 
 /* Flashcard Styles */
 .flashcard-custom {
-  width: 250px;
+  width: 300px;
   height: 200px;
   perspective: 1000px; /* Perspective for the flip effect */
   margin-bottom: 30px;  /* Add more space below each card */
@@ -429,6 +430,7 @@ body {
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
+  border-radius: .1rem;
 }
 
 .flashcard-custom .front {
@@ -460,10 +462,12 @@ body {
   gap: 30px;
   justify-items: center;
   margin: 20px;
+  column-gap: 5rem;
+  row-gap: 2rem;
 }
 
 .loading-card {
-  width: 250px;
+  width: 300px;
   height: 200px;
   background-color: rgb(162, 157, 157);
   border-radius: 10px;
