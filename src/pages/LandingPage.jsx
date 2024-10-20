@@ -66,11 +66,6 @@ const LandingPage = () => {
                   Generate Flashcards
                 </Link>
               </div>
-              <div className="button-wrapper">
-                <Link to="/extract" className="btn btn-primary">
-                  Note &rarr; Text
-                </Link>
-              </div>
             </motion.div>{" "}
           </div>
         </motion.section>
