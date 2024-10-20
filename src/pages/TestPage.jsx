@@ -107,6 +107,12 @@ const TestPage = () => {
     resetCardState();
   };
 
+  const confirmExit = () => {
+    if (window.confirm("Are you sure you want to exit the test? Your progress will be lost.")) {
+      navigate('/view');
+    }
+  };
+
   if (!collection) {
     return <div style={styles.loading}>Loading...</div>;
   }
@@ -192,6 +198,9 @@ const TestPage = () => {
       <div style={styles.navigationButtons}>
         <button onClick={handlePreviousCard} disabled={currentCardIndex === 0} style={styles.navButton}>
           Previous
+        </button>
+        <button onClick={confirmExit} style={styles.exitButton}>
+          Exit Test
         </button>
         <button
           onClick={handleNextCard}
@@ -309,8 +318,10 @@ const styles = {
   },
   navigationButtons: {
     display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '20px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '20px',
+    marginTop: '20px',
   },
   navButton: {
     backgroundColor: '#2196F3',
@@ -322,16 +333,15 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s',
   },
-  backButton: {
-    backgroundColor: '#f0f0f0',
-    color: '#333',
-    border: '1px solid #ccc',
+  exitButton: {
+    backgroundColor: '#f44336',
+    color: 'white',
+    border: 'none',
     padding: '10px 20px',
     fontSize: '16px',
     borderRadius: '4px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
-    alignSelf: 'center',
   },
   loading: {
     display: 'flex',
@@ -371,6 +381,23 @@ const styles = {
     borderRadius: '4px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '20px',
+  },
+  backButton: {
+    backgroundColor: '#f0f0f0',
+    color: '#333',
+    border: '1px solid #ccc',
+    padding: '10px 20px',
+    fontSize: '16px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+    alignSelf: 'center',
   },
 };
 
