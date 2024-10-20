@@ -733,3 +733,38 @@ body {
 .flashcard-action-button:hover {
   background-color: #f9bc80;
 }
+
+/* Add these styles to your existing CSS file */
+
+.collections-page {
+  padding: 2rem;
+}
+
+.collections-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.collection-button {
+  background-color: #ffc68e;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.collection-button:hover {
+  background-color: #f9bc80;
+}
+
+.selected-collection {
+  margin-top: 2rem;
+}
+
+.selected-collection h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}

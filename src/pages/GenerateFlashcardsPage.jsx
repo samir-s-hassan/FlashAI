@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RetreiveData from "../services/RetrieveData";
+import { Link } from "react-router-dom";
 
 const GenerateFlashcardsPage = () => {
   const [inputText, setInputText] = useState("");
@@ -66,9 +67,9 @@ const GenerateFlashcardsPage = () => {
       <main className="container">
         <h2 className="hero-title">Generate Flashcards</h2>
         <p className="hero-description">
-          <a href="#" className="text-link">
+          <Link to="/view" className="text-link">
             View Existing Flashcards
-          </a>
+          </Link>
         </p>
 
         <div className="content-section">

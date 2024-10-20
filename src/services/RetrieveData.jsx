@@ -18,6 +18,8 @@ export default function RetrieveData({ input, fileContent }) {
   const [generationCount, setGenerationCount] = useState(1);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [newCard, setNewCard] = useState({ question: "", answer: "" });
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
 
   const fetchFlashcards = async () => {
     setLoading(true);
@@ -86,8 +88,40 @@ export default function RetrieveData({ input, fileContent }) {
   };
 
   const handleSaveCollection = () => {
-    // TODO: Implement saving to DynamoDB
-    console.log("Saving collection:", flashcards);
+    if (flashcards.length === 0) {
+      console.log("No flashcards to save");
+      return;
+    }
+
+    setIsSaving(true);
+    setSaveError(null);
+
+    try {
+      const collectionId = Date.now().toString(); // Generate a unique ID
+      const collection = {
+        id: collectionId,
+        topic: input || "Generated Collection",
+        flashcards: flashcards,
+        createdAt: new Date().toISOString()
+      };
+
+      // Get existing collections from local storage
+      const existingCollections = JSON.parse(localStorage.getItem('flashcardCollections')) || [];
+
+      // Add new collection
+      existingCollections.push(collection);
+
+      // Save updated collections to local storage
+      localStorage.setItem('flashcardCollections', JSON.stringify(existingCollections));
+
+      console.log("Collection saved successfully:", collectionId);
+      // Optionally, you can show a success message to the user
+    } catch (error) {
+      console.error("Error saving collection:", error);
+      setSaveError("Failed to save collection. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleGenerateMore = () => {
@@ -135,8 +169,12 @@ export default function RetrieveData({ input, fileContent }) {
         <button className="flashcard-action-button" onClick={handleAddCard}>
           Add New Flashcard
         </button>
-        <button className="flashcard-action-button" onClick={handleSaveCollection}>
-          Save Collection
+        <button 
+          className="flashcard-action-button" 
+          onClick={handleSaveCollection}
+          disabled={isSaving || flashcards.length === 0}
+        >
+          {isSaving ? "Saving..." : "Save Collection"}
         </button>
       </div>
 
@@ -161,6 +199,8 @@ export default function RetrieveData({ input, fileContent }) {
           </div>
         </div>
       )}
+      
+      {saveError && <p className="error-message">{saveError}</p>}
     </div>
   );
 }

@@ -12,7 +12,7 @@ const RouteControl = () => {
       <Route path="/generate" element={<GenerateFlashcardsPage />} />
       <Route path="/extract" element={<ExtractNotesPage />} />
       <Route path="/transform" element={<Note2FlashcardsPage />} />
-      <Route exact path="/view" component={ViewCollectionsPage} />
+      <Route path="/view" element={<ViewCollectionsPage />} />
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   );

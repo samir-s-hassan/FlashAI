@@ -3,33 +3,67 @@ import { Link } from 'react-router-dom';
 
 const ViewCollectionsPage = () => {
   const [collections, setCollections] = useState([]);
+  const [selectedCollection, setSelectedCollection] = useState(null);
+  const [flippedCards, setFlippedCards] = useState({});
 
   useEffect(() => {
-    // TODO: Fetch collections from DynamoDB
-    // For now, we'll use mock data
-    setCollections([
-      { id: '1', name: 'Biology 101', cardCount: 20 },
-      { id: '2', name: 'World History', cardCount: 15 },
-      { id: '3', name: 'Mathematics', cardCount: 30 },
-    ]);
+    const storedCollections = JSON.parse(localStorage.getItem('flashcardCollections')) || [];
+    setCollections(storedCollections);
   }, []);
+
+  const handleCollectionSelect = (collection) => {
+    setSelectedCollection(collection);
+    setFlippedCards({});
+  };
+
+  const handleCardFlip = (id) => {
+    setFlippedCards(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
   return (
     <div className="collections-page">
-      <h1>Your Flashcard Collections</h1>
-      <div className="collections-grid">
+      <h1 className="hero-title">Your Flashcard Collections</h1>
+      <div className="collections-list">
         {collections.map(collection => (
-          <div key={collection.id} className="collection-card">
-            <h2>{collection.name}</h2>
-            <p>{collection.cardCount} cards</p>
-            <Link to={`/collection/${collection.id}`}>View Collection</Link>
-          </div>
+          <button
+            key={collection.id}
+            className="collection-button"
+            onClick={() => handleCollectionSelect(collection)}
+          >
+            {collection.topic}
+          </button>
         ))}
       </div>
-      <Link to="/generate" className="btn btn-primary">Create New Collection</Link>
+      {selectedCollection && (
+        <div className="selected-collection">
+          <h2>{selectedCollection.topic}</h2>
+          <div className="flashcard-grid-custom">
+            {selectedCollection.flashcards.map(card => (
+              <div
+                key={card.id}
+                className={`flashcard-custom ${flippedCards[card.id] ? 'flipped' : ''}`}
+                onClick={() => handleCardFlip(card.id)}
+              >
+                <div className="flashcard-content-custom">
+                  <div className="front">
+                    <p>{card.question}</p>
+                  </div>
+                  <div className="back">
+                    <p>{card.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="button-container">
+        <div className="button-wrapper">
+          <Link to="/generate" className="btn btn-primary">Create New Collection</Link>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ViewCollectionsPage;
-
