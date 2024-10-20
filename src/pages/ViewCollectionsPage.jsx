@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const ViewCollectionsPage = () => {
   const [collections, setCollections] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState(null);
   const [flippedCards, setFlippedCards] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedCollections = JSON.parse(localStorage.getItem('flashcardCollections')) || [];
+    const storedCollections =
+      JSON.parse(localStorage.getItem("flashcardCollections")) || [];
     setCollections(storedCollections);
   }, []);
 
@@ -17,14 +19,20 @@ const ViewCollectionsPage = () => {
   };
 
   const handleCardFlip = (id) => {
-    setFlippedCards(prev => ({ ...prev, [id]: !prev[id] }));
+    setFlippedCards((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleTestMode = () => {
+    if (selectedCollection) {
+      navigate("/test", { state: { collection: selectedCollection } });
+    }
   };
 
   return (
     <div className="collections-page">
       <h1 className="hero-title">Your Flashcard Collections</h1>
       <div className="collections-list">
-        {collections.map(collection => (
+        {collections.map((collection) => (
           <button
             key={collection.id}
             className="collection-button"
@@ -38,10 +46,12 @@ const ViewCollectionsPage = () => {
         <div className="selected-collection">
           <h2>{selectedCollection.topic}</h2>
           <div className="flashcard-grid-custom">
-            {selectedCollection.flashcards.map(card => (
+            {selectedCollection.flashcards.map((card) => (
               <div
                 key={card.id}
-                className={`flashcard-custom ${flippedCards[card.id] ? 'flipped' : ''}`}
+                className={`flashcard-custom ${
+                  flippedCards[card.id] ? "flipped" : ""
+                }`}
                 onClick={() => handleCardFlip(card.id)}
               >
                 <div className="flashcard-content-custom">
@@ -55,11 +65,21 @@ const ViewCollectionsPage = () => {
               </div>
             ))}
           </div>
+          <div className="flashcard-actions-container">
+            <button
+              className="flashcard-action-button"
+              onClick={handleTestMode}
+            >
+              Test Mode
+            </button>
+          </div>
         </div>
       )}
       <div className="button-container">
         <div className="button-wrapper">
-          <Link to="/generate" className="btn btn-primary">Create New Collection</Link>
+          <Link to="/generate" className="btn btn-primary">
+            Create New Collection
+          </Link>
         </div>
       </div>
     </div>

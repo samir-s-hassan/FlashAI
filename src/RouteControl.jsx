@@ -4,6 +4,7 @@ import ExtractNotesPage from "./pages/ExtractNotesPage";
 import GenerateFlashcardsPage from "./pages/GenerateFlashcardsPage";
 import Note2FlashcardsPage from "./pages/Note2FlashcardsPage";
 import ViewCollectionsPage from "./pages/ViewCollectionsPage";
+import TestPage from "./pages/TestPage";
 
 const RouteControl = () => {
   return (
@@ -13,6 +14,7 @@ const RouteControl = () => {
       <Route path="/extract" element={<ExtractNotesPage />} />
       <Route path="/transform" element={<Note2FlashcardsPage />} />
       <Route path="/view" element={<ViewCollectionsPage />} />
+      <Route path="/test" element={<TestPage />} />
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   );
