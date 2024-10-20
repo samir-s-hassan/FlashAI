@@ -89,7 +89,7 @@ const LandingPage = () => {
           <div className="feature-container">
             <div className="feature-image">
               <img
-                src="/ai-based-learning.jpg"
+                src="/learning.jpg"
                 alt="AI-powered flashcard generation"
               />
             </div>
