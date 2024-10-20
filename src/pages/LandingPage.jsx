@@ -5,7 +5,7 @@ import FlashcardSection from "../components/FlashcardSection";
 import { Link } from "react-router-dom";
 import "../index.css"
 
-const images = ["/ai-3.webp", "/ai-4.png", "/ai-5.png", "/ai-6.png"];
+const images = ["/learning.jpg", "/education.png", "/Tailored.png", "/graduation.avif"];
 
 const LandingPage = () => {
   // eslint-disable-next-line no-unused-vars
