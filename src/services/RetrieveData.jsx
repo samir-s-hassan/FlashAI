@@ -92,30 +92,33 @@ export default function RetrieveData({ input, fileContent }) {
       console.log("No flashcards to save");
       return;
     }
-
+  
     setIsSaving(true);
     setSaveError(null);
-
+  
     try {
       const collectionId = Date.now().toString(); // Generate a unique ID
+      const collectionName = input || "Generated Collection"; // Use input or default name
       const collection = {
         id: collectionId,
-        topic: input || "Generated Collection",
+        topic: collectionName,
         flashcards: flashcards,
         createdAt: new Date().toISOString()
       };
-
+  
       // Get existing collections from local storage
       const existingCollections = JSON.parse(localStorage.getItem('flashcardCollections')) || [];
-
+  
       // Add new collection
       existingCollections.push(collection);
-
+  
       // Save updated collections to local storage
       localStorage.setItem('flashcardCollections', JSON.stringify(existingCollections));
-
+  
+      // Show an alert when the collection is successfully saved
+      window.alert(`Collection "${collectionName}" has been saved successfully!`);
+  
       console.log("Collection saved successfully:", collectionId);
-      // Optionally, you can show a success message to the user
     } catch (error) {
       console.error("Error saving collection:", error);
       setSaveError("Failed to save collection. Please try again.");
@@ -123,7 +126,7 @@ export default function RetrieveData({ input, fileContent }) {
       setIsSaving(false);
     }
   };
-
+  
   const handleGenerateMore = () => {
     setGenerationCount(prev => prev + 1);
   };
