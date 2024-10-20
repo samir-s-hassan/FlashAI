@@ -29,7 +29,7 @@ const GenerateFlashcardsPage = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target.result;
-      setFileContent(content); // Set file content but do not trigger API call yet
+      setFileContent(content); // You can process content later for images/PDFs
       setInputText(""); // Clear input text when file is uploaded
     };
     reader.readAsText(file); // Keep as text for .txt files, otherwise handle different types below
