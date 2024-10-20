@@ -72,9 +72,6 @@ const LoginPage = () => {
             <motion.div {...fadeIn} className="button-container">
               <div className="button-wrapper">
                 <div>
-                  <h2>React Google Login</h2>
-                  <br />
-                  <br />
                   <GoogleLogin
                     onSuccess={responseMessage}
                     onError={errorMessage}

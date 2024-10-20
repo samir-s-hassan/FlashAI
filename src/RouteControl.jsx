@@ -3,19 +3,21 @@ import LandingPage from "./pages/LandingPage";
 import ExtractNotesPage from "./pages/ExtractNotesPage";
 import GenerateFlashcardsPage from "./pages/GenerateFlashcardsPage";
 import Note2FlashcardsPage from "./pages/Note2FlashcardsPage";
-import ViewCollectionsPage from "./pages/ViewCollectionsPage";
+import LoginPage from "./pages/LoginPage";
+
 
 const RouteControl = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/generate" element={<GenerateFlashcardsPage />} />
-      <Route path="/extract" element={<ExtractNotesPage />} />
-      <Route path="/transform" element={<Note2FlashcardsPage />} />
-      <Route exact path="/view" component={ViewCollectionsPage} />
-      <Route path="*" element={<div>404 Not Found</div>} />
-    </Routes>
-  );
+ return (
+   <Routes>
+     <Route path="/" element={<LoginPage />} />
+     <Route path="/home" element={<LandingPage />} />
+     <Route path="/generate" element={<GenerateFlashcardsPage />} />
+     <Route path="/extract" element={<ExtractNotesPage />} />
+     <Route path="/transform" element={<Note2FlashcardsPage />} />
+     <Route path="*" element={<div>404 Not Found</div>} />
+   </Routes>
+ );
 };
+
 
 export default RouteControl;
