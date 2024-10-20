@@ -21,39 +21,59 @@ const ExtractNotesPage = () => {
     accept: "image/*",
   });
 
+  // Function to convert the file to base64 format
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(",")[1]); // Get base64 string without metadata
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedFile) {
       setError("Please select or drop a file to upload.");
       return;
     }
-
+  
     setIsUploading(true);
     setError(null);
     setExtractedText("");
-
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("userFunction", "extractText");  // Adding user function to FormData
-
+  
     try {
+      // Convert the selected image to base64
+      const base64Image = await convertToBase64(selectedFile);
+  
+      // Prepare the request body with the base64 image
+      const requestBody = {
+        image: base64Image,
+      };
+  
       // Send the image and userFunction to your backend
       const uploadResponse = await fetch(
-        "https://igojsrmb51.execute-api.us-west-2.amazonaws.com/dev",
+        "https://xc3ba33hcj.execute-api.us-west-2.amazonaws.com/dev/",
         {
           method: "POST",
-          body: formData,  // Include the image and userFunction in form data
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody), // Send image as JSON
         }
       );
-
+  
       if (!uploadResponse.ok) {
         throw new Error("Image upload failed or extraction failed.");
       }
-
-      // Handle the returned text response
+  
+      // Handle the returned response
       const data = await uploadResponse.json(); // Assuming the response is JSON
-      setExtractedText(data.extractedText); // Assuming `extractedText` is returned from the backend
-
+      setExtractedText(data.base64_image); // Show the 'Hello, world!' message
+  
+      // Log the message to console for debugging
+      console.log(data.message);
+  
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred"
@@ -62,7 +82,7 @@ const ExtractNotesPage = () => {
       setIsUploading(false);
     }
   };
-
+  
   const downloadExtractedText = () => {
     // Create a downloadable file for the extracted text
     const blob = new Blob([extractedText], { type: "text/plain" });
@@ -135,7 +155,10 @@ const ExtractNotesPage = () => {
                 readOnly
               ></textarea>
 
-              <button onClick={downloadExtractedText} className="btn btn-secondary">
+              <button
+                onClick={downloadExtractedText}
+                className="btn btn-secondary"
+              >
                 Download Extracted Text
               </button>
             </div>
