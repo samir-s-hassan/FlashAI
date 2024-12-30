@@ -43,6 +43,4 @@
 
 ## What's next for FlashAI
 - Create functionality to print out the digital flashcards
-      -	Creating feature to have communities based on learning topic to allow for peer-based learning
-
-
+- Creating feature to have communities based on learning topic to allow for peer-based learning
