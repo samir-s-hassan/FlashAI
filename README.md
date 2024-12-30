@@ -12,12 +12,16 @@
 - As a user, I can understand how well I’m learning and studying
 - As a user, I can to save a collection of flashcards and load it as needed
 
+## How to run
+1. Open your terminal
+2. Run "npm install" to make sure you have all the necessary dependencies/packages
+3. Run "npx vite build"
+4. Run "npx vite" and this will get our app started on a link
+5. Click on the link present in your client terminal to open your front-end
+6. Enjoy your app!
+
 ## How we built it
 - We built our frontend using Vite js and utilized API gateways to communicate with our backend hosted on AWS Lambda, using the Bedrock agent to send signals to Claude 3. The output was returned back in a json format, which we converted into an interactive format to be displayed on the screen to the user
-
-## How to run the app
-- 
-
 
 ## Challenges we ran into
 - We had a hard time incorporating file recognition into our project, turning pdfs into base 64 to send to the LLM model.
