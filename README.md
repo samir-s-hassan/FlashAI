@@ -13,7 +13,7 @@
 - As a user, I can to save a collection of flashcards and load it as needed
 
 ## How to run
-1. Open your terminal
+1. Open your terminal and make sure you are in project's root directory
 2. Run "npm install" to make sure you have all the necessary dependencies/packages
 3. Run "npx vite build"
 4. Run "npx vite" and this will get our app started on a link
